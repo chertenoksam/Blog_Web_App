@@ -24,16 +24,16 @@ public class BlogPostController<posts> {
 	private BlogPostRepository blogPostRepository;
 	private static List<BlogPost> posts = new ArrayList<>();
 	
-	@GetMapping(value="/blogpost/new")
+	@GetMapping(value="/")
 	public String index(BlogPost blogPost, Model model) {
 		model.addAttribute("posts", posts);
 		log.error("index");
-		return "blogpost/index.html"; 
+		return "index.html"; 
 	}
 	
 	private BlogPost blogPost;
 	
-	@PostMapping(value = "/blogpost/new")
+	@PostMapping(value = "/blogpost")
 	public String create(BlogPost blogPost, Model model) {
 		blogPostRepository.save(blogPost);
 		posts.add(blogPost);
@@ -41,14 +41,12 @@ public class BlogPostController<posts> {
 		model.addAttribute("author", blogPost.getAuthor());
 		model.addAttribute("blogEntry", blogPost.getBlogEntry());
 		log.error("result");
-		return "blogpost/result.html";
+		return "result.html";
 	        }
-    @RequestMapping(value = "/blogpost/{id}", method = RequestMethod.DELETE)
-    public String deletePostWithId(@PathVariable Long id,
-                                   BlogPost blogPost) {
+    @RequestMapping("/")
+    public String index() {
 
-        blogPostRepository.deleteById(id);
-        return "blogpost/index";
+        return "/blogpost/index";
 
     }
 	
